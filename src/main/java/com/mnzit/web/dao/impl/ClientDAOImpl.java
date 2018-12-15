@@ -13,15 +13,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Mnzit
  */
+@Repository
 public class ClientDAOImpl implements ClientDAO {
 
     @Autowired
     JdbcTemplate template;
+    
+    @Autowired
+    FollowUpDAOImpl followUpDAOImpl;
 
     @Override
     public List<Client> getAll() {
@@ -31,7 +36,7 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public int insert(Client model) {
-        String sql = "INSERT INTO client(first_name,last_name,email,contact_us,status) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO client(first_name,last_name,email,contact_no,status) VALUES(?,?,?,?,?)";
         return template.update(sql, new Object[]{model.getFirstName(), model.getLastName(), model.getEmail(), model.getContactNo(), model.isStatus()});
     }
 
@@ -65,7 +70,7 @@ public class ClientDAOImpl implements ClientDAO {
             client.setContactNo(rs.getString("contact_no"));
             client.setStatus(rs.getBoolean("status"));
             client.setAddedDate(rs.getDate("added_date"));
-            client.setFollowUps(rs.getInt("follow_ups"));
+            client.setFollowUps( followUpDAOImpl.getMultipleById(rs.getInt("id")).size());
             return client;
         }
 
