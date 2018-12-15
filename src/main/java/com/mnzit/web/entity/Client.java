@@ -11,19 +11,21 @@ import java.util.Date;
  *
  * @author Mnzit
  */
-public class Student extends Entity{
+public class Client extends Entity{
 
-    private String firstName, lastName, email, contactNo;
+    private String firstName,lastName, email, contactNo;
+    private int followUps;
 
-    public Student() {
+    public Client() {
     }
 
-    public Student(String firstName, String lastName, String email, String contactNo, int id, Date addedDate, Date modifiedDate, boolean status) {
+    public Client(String firstName, String lastName, String email, String contactNo, int followUps, int id, Date addedDate, Date modifiedDate, boolean status) {
         super(id, addedDate, modifiedDate, status);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.contactNo = contactNo;
+        this.followUps = followUps;
     }
 
     public String getFirstName() {
@@ -57,5 +59,14 @@ public class Student extends Entity{
     public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
     }
- 
+
+    public int getFollowUps() {
+        return followUps;
+    }
+
+    public void setFollowUps(int followUps) {
+        this.followUps = followUps;
+    }
+
+    
 }

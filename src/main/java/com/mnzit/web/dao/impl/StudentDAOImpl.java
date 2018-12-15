@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Repository;
  * @author Mnzit
  */
 @Repository
-@Primary
 public class StudentDAOImpl implements StudentDAO {
 
     @Autowired
@@ -43,7 +41,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public int update(Student model){
-        String sql = "UPDATE student SET first_name=?,last_name=?,email=?,contact_no=?,status=? WHERE id=?";
+        String sql = "UPDATE student SET first_name=?,last_name=?,email=?,contact_no=?,status=?,modified_date=CURRENT_TIMESTAMP WHERE id=?";
         return template.update(sql, new Object[]{model.getFirstName(), model.getLastName(),
             model.getEmail(), model.getContactNo(),
             model.isStatus(), model.getId()});
@@ -74,7 +72,6 @@ public class StudentDAOImpl implements StudentDAO {
             student.setAddedDate(rs.getDate("added_date"));
             student.setModifiedDate(rs.getDate("modified_date"));
             student.setStatus(rs.getBoolean("status"));
-            System.out.println(rs.getInt("id"));
             return student;
         }
 

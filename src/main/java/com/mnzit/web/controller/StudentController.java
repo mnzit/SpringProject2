@@ -5,8 +5,8 @@
  */
 package com.mnzit.web.controller;
 
-import com.mnzit.web.dao.StudentDAO;
 import com.mnzit.web.entity.Student;
+import com.mnzit.web.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +25,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StudentController {
     
     @Autowired
-    private StudentDAO studentDAO;
+    private StudentServiceImpl studentServiceImpl;
    
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("students", studentDAO.getAll());
+        for(Student student:studentServiceImpl.getAll()){
+            student.getFirstName();
+        }
+        model.addAttribute("students", studentServiceImpl.getAll());
         return "student/index";
     }
 
@@ -40,23 +43,23 @@ public class StudentController {
 
     @GetMapping(value = "/edit/{id}")
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("student", studentDAO.getById(id));
+        model.addAttribute("student", studentServiceImpl.getById(id));
         return "student/edit";
     }
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("Student") Student student) {
         if (student.getId() < 1) {
-            studentDAO.insert(student);
+            studentServiceImpl.insert(student);
         } else {
-            studentDAO.update(student);
+            studentServiceImpl.update(student);
         }
         return "redirect:/students";
     }
 
     @GetMapping(value = "/delete/{id}")
     public String delete(@PathVariable("id") int id) {
-        studentDAO.delete(id);
+        studentServiceImpl.delete(id);
         return "redirect:/students";
     }
 
