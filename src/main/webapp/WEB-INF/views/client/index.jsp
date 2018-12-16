@@ -1,6 +1,8 @@
 <%@include file="../shared/header.jsp" %>
-<div class="page-header">
-    <h1>Client Manager</h1>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container text-center">
+    <h1 class="display-4">Client Manager</h1>
+  </div>
 </div>
 <form  method="post" action="${SITE_URL}/clients/save">
     <div class="form-group">
@@ -20,8 +22,8 @@
         <input type="text" name="contactNo" required="required" class="form-control"/>
     </div>
     <div class="form-inline">
-        <label>Status</label>
-        <label><input type="checkbox" name="status" class="status"/>Active</label>
+        <label>Status  </label>
+        <label><input type="checkbox" name="status" class="status"/>  Active</label>
     </div>
     <input type="hidden" name="id" value="0"/>
 

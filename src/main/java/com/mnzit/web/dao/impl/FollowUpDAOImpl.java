@@ -38,8 +38,8 @@ public class FollowUpDAOImpl implements FollowUpDAO {
 
     @Override
     public int update(FollowUp model) {
-        String sql = "UPDATE SET follow_ups message=? WHERE id=?";
-        return template.update(sql, new Object[]{model.getId()});
+        String sql = "UPDATE follow_ups SET message=? WHERE id=?";
+        return template.update(sql, new Object[]{model.getMessage(),model.getId()});
     }
 
     @Override

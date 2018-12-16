@@ -1,4 +1,9 @@
 <%@include file="../shared/header.jsp" %>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container text-center">
+    <h1 class="display-4">Edit</h1>
+  </div>
+</div>
 <form  method="post" action="${SITE_URL}/students/save">
     <div class="form-group">
         <label>First name</label>
@@ -17,8 +22,8 @@
         <input type="text" name="contactNo" required="required" class="form-control" value="${student.contactNo}"/>
     </div>
     <div class="form-inline">
-        <label>Status</label>
-        <label><input type="checkbox" name="status" class="status" <c:if test="${student.status}">checked = "checked"</c:if>/>Active</label>
+        <label>Status  </label>
+        <label><input type="checkbox" name="status" class="status" <c:if test="${student.status}">checked = "checked"</c:if>/>  Active</label>
     </div>
     <input type="hidden" name="id" value="${student.id}"/>
 

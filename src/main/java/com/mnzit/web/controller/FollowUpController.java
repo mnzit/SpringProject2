@@ -34,15 +34,25 @@ public class FollowUpController {
         return "followup/index";
     }
 
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute("FollowUp") FollowUp followUp) {
-        followUpDAOImpl.insert(followUp);
-        return "redirect:/clients";
+    @PostMapping(value = "/{client_id}/save")
+    public String save(@PathVariable("client_id") int client_id, @ModelAttribute("FollowUp") FollowUp followUp) {
+        if (followUp.getId() < 1) {
+            followUpDAOImpl.insert(followUp);
+        } else {
+            followUpDAOImpl.update(followUp);
+        }
+        return "redirect:/clients/followup/" + client_id;
     }
-    
-    @GetMapping(value = "/delete/{id}")
-    public String delete(@PathVariable("id") int id){
+
+    @GetMapping(value = "/{client_id}/delete/{id}")
+    public String delete(@PathVariable("client_id") int client_id, @PathVariable("id") int id) {
         followUpDAOImpl.delete(id);
-        return "redirect:/clients";
+        return "redirect:/clients/followup/" + client_id;
+    }
+
+    @GetMapping(value = "/{client_id}/edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("followup", followUpDAOImpl.getById(id));
+        return "followup/edit";
     }
 }

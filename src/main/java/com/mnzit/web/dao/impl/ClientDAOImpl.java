@@ -42,7 +42,7 @@ public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public int update(Client model) {
-        String sql = "UPDATE SET client first_name=?,last_name=?,email=?,contact_no=?,status=?,modified_date=CURRENT_TIMESTAMP WHERE id=?";
+        String sql = "UPDATE client SET first_name=?,last_name=?,email=?,contact_no=?,status=?,modified_date=CURRENT_TIMESTAMP WHERE id=?";
         return template.update(sql, new Object[]{model.getFirstName(), model.getLastName(), model.getEmail(), model.getContactNo(), model.isStatus(), model.getId()});
     }
 

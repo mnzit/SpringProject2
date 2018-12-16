@@ -12,6 +12,9 @@
       <li class="nav-item">
         <a class="nav-link" href="${SITE_URL}/students/">Students</a>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="${SITE_URL}/clients/">Clients</a>
+      </li>
     </ul>
   </div>
 </nav>
