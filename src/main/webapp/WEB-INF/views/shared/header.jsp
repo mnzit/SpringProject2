@@ -17,8 +17,34 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script>
+
+            function fetch(clientId) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.overrideMimeType("application/json");
+                xmlhttp.open("GET", "${SITE_URL}/clients/followup/" + clientId, true);
+                xmlhttp.onload = function () {
+                    var jsonResponse = JSON.parse(xmlhttp.responseText);
+                    jsonResponse.forEach(function (element) {
+                        var table = document.getElementById("follow-ups");
+                        var row = table.insertRow(0);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        cell1.innerHTML = element.id;
+                        cell2.innerHTML = element.message;
+                        cell3.innerHTML = element.addedDate;
+                    });
+                };
+                xmlhttp.send(null);
+            }
+            function modalCloser() {
+                var table = document.getElementById("follow-ups");
+                table.innerHTML = "";
+            }
+
+        </script>
     </head>
     <body>
         <div class="container">
             <%@include file="../shared/menu.jsp" %>
-                   

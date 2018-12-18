@@ -1,8 +1,8 @@
 <%@include file="../shared/header.jsp" %>
 <div class="jumbotron jumbotron-fluid">
-  <div class="container text-center">
-    <h1 class="display-4">Client Manager</h1>
-  </div>
+    <div class="container text-center">
+        <h1 class="display-4">Client Manager</h1>
+    </div>
 </div>
 <form  method="post" action="${SITE_URL}/clients/save">
     <div class="form-group">
@@ -58,12 +58,51 @@
                     <a href="${SITE_URL}/clients/delete/${client.id}" class="btn btn-success btn-xs" onClick="confirm('Are you sure to delete?')">
                         <i class="fas fa-window-close"></i>
                     </a>
-                    <a href="${SITE_URL}/clients/followup/${client.id}" class="btn btn-success btn-xs"">
-                       <i class="far fa-comment-alt"></i>
+
+                    <a href="javascript:void(0)" class="btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" onclick="fetch(${client.id})"">
+                        <i class="far fa-comment-alt"></i>
                     </a>
                 </td>
             </tr>
+
+
         </c:forEach>
     </tbody>
 </table>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="modalCloser()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Message:</label>
+                        <textarea class="form-control" name="message"></textarea>
+                    </div>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Message</th>
+                            <th>Added Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="follow-ups">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
 <%@include file="../shared/footer.jsp" %>
