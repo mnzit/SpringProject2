@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author Mnzit
  */
-@Repository
+@Repository(value = "studentDAOImpl")
 public class StudentDAOImpl implements StudentDAO {
 
     @Autowired
