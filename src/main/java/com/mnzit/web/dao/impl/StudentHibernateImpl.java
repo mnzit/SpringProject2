@@ -9,6 +9,7 @@ import com.mnzit.web.dao.StudentDAO;
 import com.mnzit.web.entity.Student;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
+import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Repository;
  *
  * @author Mnzit
  */
-
 @Repository(value = "studentHDAO")
 public class StudentHibernateImpl implements StudentDAO {
 
@@ -36,22 +36,39 @@ public class StudentHibernateImpl implements StudentDAO {
 
     @Override
     public int insert(Student model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(model);
+        transaction.commit();
+        return 1;
     }
 
     @Override
     public int update(Student model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.saveOrUpdate(model);
+        transaction.commit();
+        return 1;
     }
 
     @Override
     public int delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Student model = getById(id);
+        if (model != null) {
+            session.delete(model);
+            transaction.commit();
+            return 1;
+        }
+        return 0;
     }
 
     @Override
     public Student getById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = sessionFactory.openSession();
+        return session.get(Student.class, id);
     }
 
 }

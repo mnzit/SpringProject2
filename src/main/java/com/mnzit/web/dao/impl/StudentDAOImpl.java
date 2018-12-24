@@ -27,6 +27,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public List<Student> getAll(){
+        System.out.println("From studentDAO");
         String sql = "SELECT * FROM student";
         return template.query(sql, new StudentMapper());
     }
