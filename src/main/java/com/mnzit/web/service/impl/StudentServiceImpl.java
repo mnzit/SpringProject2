@@ -11,6 +11,7 @@ import com.mnzit.web.entity.Student;
 import com.mnzit.web.service.StudentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,33 +20,34 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class StudentServiceImpl implements StudentService {
-    
+
     @Autowired
+    @Qualifier(value = "studentHDAO")
     StudentDAO studentDao;
-    
+
     @Override
     public List<Student> getAll() {
         return studentDao.getAll();
     }
-    
+
     @Override
     public int insert(Student model) {
         return studentDao.insert(model);
     }
-    
+
     @Override
     public int update(Student model) {
         return studentDao.update(model);
     }
-    
+
     @Override
     public Student getById(int id) {
         return studentDao.getById(id);
     }
-    
+
     @Override
     public int delete(int id) {
         return studentDao.delete(id);
     }
-    
+
 }
